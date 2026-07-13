@@ -1,0 +1,23 @@
+package com.keystone.delivery_service.service;
+
+import java.util.List;
+
+import com.keystone.delivery_service.dto.request.CreateWorkOrderRequest;
+import com.keystone.delivery_service.dto.request.UpdateWorkOrderRequest;
+import com.keystone.delivery_service.dto.response.WorkOrderResponse;
+
+public interface WorkOrderService {
+
+    WorkOrderResponse createWorkOrder(CreateWorkOrderRequest request);
+
+    List<WorkOrderResponse> getAllWorkOrders();
+
+    WorkOrderResponse getWorkOrderById(Long id);
+
+    WorkOrderResponse updateWorkOrder(
+            Long id,
+            UpdateWorkOrderRequest request);
+
+    void deleteWorkOrder(Long id);
+
+}

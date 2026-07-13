@@ -49,12 +49,15 @@ public class JwtService {
                 .getExpiration()
                 .before(new Date());
     }
-
     private Claims extractAllClaims(String token) {
+
+        System.out.println("JwtService Token : " + token);
+
         return Jwts.parser()
                 .verifyWith(getSigningKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+    
     }
 }

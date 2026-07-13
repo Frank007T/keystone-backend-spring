@@ -1,44 +1,55 @@
-package com.keystone.delivery_service.entity;
+package com.keystone.delivery_service.dto.response;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+public class CustomerResponse {
 
-@Entity
-@Table(name = "customers")
-public class Customer extends BaseEntity {
-
-    @Column(nullable = false)
+    private Long id;
     private String customerName;
-
-    @Column(nullable = false)
     private String companyName;
-
-    @Column(nullable = false, unique = true)
     private String email;
-
-    @Column(nullable = false)
     private String phoneNumber;
-
-    @Column(nullable = false)
     private String address;
-
-    @Column(nullable = false)
     private String city;
-
-    @Column(nullable = false)
     private String state;
-
-    @Column(nullable = false)
     private String country;
-
-    @Column(nullable = false)
     private String postalCode;
+    private boolean active;
 
-    @Column(nullable = false)
-    private boolean active = true;
+    public CustomerResponse() {
+    }
 
-    // Getters and Setters
+    public CustomerResponse(
+            Long id,
+            String customerName,
+            String companyName,
+            String email,
+            String phoneNumber,
+            String address,
+            String city,
+            String state,
+            String country,
+            String postalCode,
+            boolean active) {
+
+        this.id = id;
+        this.customerName = customerName;
+        this.companyName = companyName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.postalCode = postalCode;
+        this.active = active;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getCustomerName() {
         return customerName;

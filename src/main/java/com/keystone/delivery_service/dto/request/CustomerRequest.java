@@ -1,44 +1,39 @@
-package com.keystone.delivery_service.entity;
+package com.keystone.delivery_service.dto.request;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
-@Entity
-@Table(name = "customers")
-public class Customer extends BaseEntity {
+public class CustomerRequest {
 
-    @Column(nullable = false)
+    @NotBlank(message = "Customer name is required")
     private String customerName;
 
-    @Column(nullable = false)
+    @NotBlank(message = "Company name is required")
     private String companyName;
 
-    @Column(nullable = false, unique = true)
+    @Email(message = "Invalid email")
+    @NotBlank(message = "Email is required")
     private String email;
 
-    @Column(nullable = false)
+    @NotBlank(message = "Phone number is required")
     private String phoneNumber;
 
-    @Column(nullable = false)
+    @NotBlank(message = "Address is required")
     private String address;
 
-    @Column(nullable = false)
+    @NotBlank(message = "City is required")
     private String city;
 
-    @Column(nullable = false)
+    @NotBlank(message = "State is required")
     private String state;
 
-    @Column(nullable = false)
+    @NotBlank(message = "Country is required")
     private String country;
 
-    @Column(nullable = false)
+    @NotBlank(message = "Postal code is required")
     private String postalCode;
 
-    @Column(nullable = false)
     private boolean active = true;
-
-    // Getters and Setters
 
     public String getCustomerName() {
         return customerName;
