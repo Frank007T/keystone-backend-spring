@@ -188,4 +188,24 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 
                 .build();
     }
+    
+    @Override
+    public WorkOrderResponse assignTechnician(
+            Long workOrderId,
+            Long technicianId) {
+
+        WorkOrder workOrder = workOrderRepository.findById(workOrderId)
+                .orElseThrow(() ->
+                        new RuntimeException("Work Order not found"));
+
+        User technician = userRepository.findById(technicianId)
+                .orElseThrow(() ->
+                        new RuntimeException("Technician not found"));
+
+        workOrder.setTechnician(technician);
+
+        workOrderRepository.save(workOrder);
+
+        return mapToResponse(workOrder);
+    }
 }

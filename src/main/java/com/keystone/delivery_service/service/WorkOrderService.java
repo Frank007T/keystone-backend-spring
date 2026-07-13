@@ -20,4 +20,6 @@ public interface WorkOrderService {
 
     void deleteWorkOrder(Long id);
 
+	WorkOrderResponse assignTechnician(Long workOrderId, Long technicianId);
+
 }

@@ -65,5 +65,15 @@ public class WorkOrderController {
 
         return ResponseEntity.ok("Work Order deleted successfully.");
     }
+    @PatchMapping("/{workOrderId}/assign-technician/{technicianId}")
+    public ResponseEntity<WorkOrderResponse> assignTechnician(
+            @PathVariable Long workOrderId,
+            @PathVariable Long technicianId) {
+
+        return ResponseEntity.ok(
+                workOrderService.assignTechnician(
+                        workOrderId,
+                        technicianId));
+    }
 
 }
