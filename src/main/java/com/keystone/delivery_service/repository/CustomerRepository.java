@@ -8,6 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import com.keystone.delivery_service.entity.Customer;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
@@ -16,5 +20,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     boolean existsByEmail(String email);
 
     List<Customer> findByCustomerNameContainingIgnoreCase(String customerName);
+    
+    Page<Customer> findAll(Pageable pageable);
 
 }

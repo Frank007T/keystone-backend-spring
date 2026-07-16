@@ -208,4 +208,38 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 
         return mapToResponse(workOrder);
     }
+    @Override
+    public WorkOrderResponse assignManager(
+            Long workOrderId,
+            Long managerId) {
+
+        WorkOrder workOrder = workOrderRepository.findById(workOrderId)
+                .orElseThrow(() ->
+                        new RuntimeException("Work Order not found"));
+
+        User manager = userRepository.findById(managerId)
+                .orElseThrow(() ->
+                        new RuntimeException("Manager not found"));
+
+        workOrder.setManager(manager);
+
+        workOrderRepository.save(workOrder);
+
+        return mapToResponse(workOrder);
+    }
+    @Override
+    public WorkOrderResponse updateStatus(
+            Long workOrderId,
+            WorkOrderStatus status) {
+
+        WorkOrder workOrder = workOrderRepository.findById(workOrderId)
+                .orElseThrow(() ->
+                        new RuntimeException("Work Order not found"));
+
+        workOrder.setStatus(status);
+
+        workOrderRepository.save(workOrder);
+
+        return mapToResponse(workOrder);
+    }
 }

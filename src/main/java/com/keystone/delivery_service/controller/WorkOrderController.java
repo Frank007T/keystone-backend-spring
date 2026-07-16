@@ -11,6 +11,8 @@ import com.keystone.delivery_service.dto.request.CreateWorkOrderRequest;
 import com.keystone.delivery_service.dto.request.UpdateWorkOrderRequest;
 import com.keystone.delivery_service.dto.response.WorkOrderResponse;
 import com.keystone.delivery_service.service.WorkOrderService;
+import com.keystone.delivery_service.dto.request.AssignManagerRequest;
+import com.keystone.delivery_service.dto.request.UpdateWorkOrderStatusRequest;
 
 import jakarta.validation.Valid;
 
@@ -74,6 +76,26 @@ public class WorkOrderController {
                 workOrderService.assignTechnician(
                         workOrderId,
                         technicianId));
+    }
+    @PatchMapping("/{workOrderId}/assign-manager")
+    public ResponseEntity<Object> assignManager(
+            @PathVariable Long workOrderId,
+            @Valid @RequestBody AssignManagerRequest request) {
+
+        return ResponseEntity.ok(
+                workOrderService.assignManager(
+                        workOrderId,
+                        request.getManagerId()));
+    }
+    @PatchMapping("/{workOrderId}/status")
+    public ResponseEntity<WorkOrderResponse> updateStatus(
+            @PathVariable Long workOrderId,
+            @Valid @RequestBody UpdateWorkOrderStatusRequest request) {
+
+        return ResponseEntity.ok(
+                workOrderService.updateStatus(
+                        workOrderId,
+                        request.getStatus()));
     }
 
 }

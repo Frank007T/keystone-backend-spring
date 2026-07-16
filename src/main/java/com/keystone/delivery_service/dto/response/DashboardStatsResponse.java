@@ -1,53 +1,26 @@
 package com.keystone.delivery_service.dto.response;
 
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
 public class DashboardStatsResponse {
 
-    private long customers;
-    private long sites;
-    private long workOrders;
-    private long technicians;
+    private long totalCustomers;
 
-    public DashboardStatsResponse(
-            long customers,
-            long sites,
-            long workOrders,
-            long technicians) {
+    private long totalSites;
 
-        this.customers = customers;
-        this.sites = sites;
-        this.workOrders = workOrders;
-        this.technicians = technicians;
-    }
+    private long totalWorkOrders;
 
-    public long getCustomers() {
-        return customers;
-    }
+    private long newWorkOrders;
 
-    public void setCustomers(long customers) {
-        this.customers = customers;
-    }
+    private long inProgressWorkOrders;
 
-    public long getSites() {
-        return sites;
-    }
+    private long completedWorkOrders;
 
-    public void setSites(long sites) {
-        this.sites = sites;
-    }
+    private long totalManagers;
 
-    public long getWorkOrders() {
-        return workOrders;
-    }
+    private long totalTechnicians;
 
-    public void setWorkOrders(long workOrders) {
-        this.workOrders = workOrders;
-    }
-
-    public long getTechnicians() {
-        return technicians;
-    }
-
-    public void setTechnicians(long technicians) {
-        this.technicians = technicians;
-    }
 }

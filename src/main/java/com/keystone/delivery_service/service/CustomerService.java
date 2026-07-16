@@ -2,6 +2,8 @@ package com.keystone.delivery_service.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.keystone.delivery_service.dto.request.CustomerRequest;
 import com.keystone.delivery_service.dto.response.CustomerResponse;
 
@@ -19,4 +21,9 @@ public interface CustomerService {
 
     void deleteCustomer(Long id);
 
+    Page<CustomerResponse> getCustomers(
+            int page,
+            int size,
+            String sortBy,
+            String direction);
 }

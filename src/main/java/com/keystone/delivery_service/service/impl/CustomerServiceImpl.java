@@ -1,6 +1,12 @@
 package com.keystone.delivery_service.service.impl;
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -106,18 +112,34 @@ public class CustomerServiceImpl implements CustomerService {
 
     private CustomerResponse mapToResponse(Customer customer) {
 
-        return new CustomerResponse(
-                customer.getId(),
-                customer.getCustomerName(),
-                customer.getCompanyName(),
-                customer.getEmail(),
-                customer.getPhoneNumber(),
-                customer.getAddress(),
-                customer.getCity(),
-                customer.getState(),
-                customer.getCountry(),
-                customer.getPostalCode(),
-                customer.isActive());
+    	return new CustomerResponse(
+    	        customer.getId(),
+    	        customer.getCustomerName(),
+    	        customer.getCompanyName(),
+    	        customer.getEmail(),
+    	        customer.getPhoneNumber(),
+    	        customer.getAddress(),
+    	        customer.getCity(),
+    	        customer.getState(),
+    	        customer.getCountry(),
+    	        customer.getPostalCode(),
+    	        customer.isActive());
+    }
+    
+    @Override
+    public Page<CustomerResponse> getCustomers(
+            int page,
+            int size,
+            String search,
+            String sortBy) {
+
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by(sortBy));
+
+        return customerRepository.findAll(pageable)
+                .map(this::mapToResponse);
     }
 
 }

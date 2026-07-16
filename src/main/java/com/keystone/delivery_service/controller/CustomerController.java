@@ -2,6 +2,7 @@ package com.keystone.delivery_service.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,7 +25,12 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    // Create Customer
+    /*
+    |--------------------------------------------------------------------------
+    | CREATE CUSTOMER
+    |--------------------------------------------------------------------------
+    */
+
     @PostMapping
     public ResponseEntity<CustomerResponse> createCustomer(
             @Valid @RequestBody CustomerRequest request) {
@@ -34,22 +40,69 @@ public class CustomerController {
                 .body(customerService.createCustomer(request));
     }
 
-    // Get All Customers
-    @GetMapping
-    public ResponseEntity<List<CustomerResponse>> getAllCustomers() {
+    /*
+    |--------------------------------------------------------------------------
+    | GET CUSTOMERS (Pagination + Sorting)
+    |--------------------------------------------------------------------------
+    */
 
-        return ResponseEntity.ok(customerService.getAllCustomers());
+    @GetMapping
+    public ResponseEntity<Page<CustomerResponse>> getCustomers(
+
+            @RequestParam(defaultValue = "0")
+            int page,
+
+            @RequestParam(defaultValue = "10")
+            int size,
+
+            @RequestParam(defaultValue = "customerName")
+            String sortBy,
+
+            @RequestParam(defaultValue = "asc")
+            String direction) {
+
+        return ResponseEntity.ok(
+                customerService.getCustomers(
+                        page,
+                        size,
+                        sortBy,
+                        direction));
     }
 
-    // Get Customer By Id
+    /*
+    |--------------------------------------------------------------------------
+    | GET CUSTOMER BY ID
+    |--------------------------------------------------------------------------
+    */
+
     @GetMapping("/{id}")
     public ResponseEntity<CustomerResponse> getCustomerById(
             @PathVariable Long id) {
 
-        return ResponseEntity.ok(customerService.getCustomerById(id));
+        return ResponseEntity.ok(
+                customerService.getCustomerById(id));
     }
 
-    // Update Customer
+    /*
+    |--------------------------------------------------------------------------
+    | SEARCH CUSTOMERS
+    |--------------------------------------------------------------------------
+    */
+
+    @GetMapping("/search")
+    public ResponseEntity<List<CustomerResponse>> searchCustomers(
+            @RequestParam String keyword) {
+
+        return ResponseEntity.ok(
+                customerService.searchCustomers(keyword));
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | UPDATE CUSTOMER
+    |--------------------------------------------------------------------------
+    */
+
     @PutMapping("/{id}")
     public ResponseEntity<CustomerResponse> updateCustomer(
             @PathVariable Long id,
@@ -59,22 +112,20 @@ public class CustomerController {
                 customerService.updateCustomer(id, request));
     }
 
-    // Delete Customer
+    /*
+    |--------------------------------------------------------------------------
+    | DELETE CUSTOMER
+    |--------------------------------------------------------------------------
+    */
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCustomer(
             @PathVariable Long id) {
 
         customerService.deleteCustomer(id);
 
-        return ResponseEntity.ok("Customer deleted successfully");
-    }
-
-    // Search Customers
-    @GetMapping("/search")
-    public ResponseEntity<List<CustomerResponse>> searchCustomers(
-            @RequestParam String keyword) {
-
         return ResponseEntity.ok(
-                customerService.searchCustomers(keyword));
+                "Customer deleted successfully");
     }
+
 }
